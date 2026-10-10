@@ -1,16 +1,14 @@
 # engineering-infographic-zh
 
-一个 Codex 技能（Skill），用来**生成或复刻中文工程信息图** —— 架构图、方案图、流程图、现场实施图这类，用 PowerPoint / Visio 做出来的那种密集标注图。
+一个 Codex 技能，用来做中文工程信息图。架构图、方案图、流程图、现场实施图这一类，平时在 PowerPoint 或 Visio 里画的那种密集标注图。
 
-输出的是一套固定尺寸的矢量 HTML，再渲染成 3 倍 PNG 或矢量 PDF。全程是真文字、真形状，可以改、可以缩放。
+做法是先把参考图的坐标和配色量出来，填进固定尺寸的 HTML 模板，再用无头浏览器渲染成 PNG 或 PDF。图里是矢量形状和真文字，后面改字号、改文案、放大缩小都不成问题。
 
----
+## 为什么不用文生图
 
-## 它解决什么问题
+这类图交给文生图模型做不了：文字会变形，方框会歪，尺寸也对不上。
 
-这类图**不能靠文生图模型画**。扩散模型输出的位图，文字必然变形、框线必然歪，尺寸也对不上。唯一的可靠做法是按坐标把形状和文字重建出来，再渲染成图片。
-
-这个技能把这套流程固化下来了：量坐标 → 填模板 → 无头浏览器渲染 → 与参考图逐像素比对 → 按错位带修坐标。
+按坐标把形状和文字重新摆一遍，才能和参考图对得上。这个技能把动作固定成五步：量坐标、填模板、渲染、和参考图比对、按比对结果改坐标。
 
 ## 预览
 
@@ -28,13 +26,12 @@
 
 ## 安装
 
-克隆到 Codex 的 skills 目录即可。
+`SKILL.md` 就在仓库根目录，所以直接把仓库 clone 进 skills 目录就行，不用再复制一层。
 
 Windows（PowerShell）：
 
 ```powershell
-git clone https://github.com/Szygo/engineering-infographic-zh.git
-Copy-Item -Recurse engineering-infographic-zh "$env:USERPROFILE\.codex\skills\engineering-infographic-zh"
+git clone https://github.com/Szygo/engineering-infographic-zh.git "$env:USERPROFILE\.codex\skills\engineering-infographic-zh"
 ```
 
 macOS / Linux：
@@ -42,6 +39,10 @@ macOS / Linux：
 ```bash
 git clone https://github.com/Szygo/engineering-infographic-zh.git ~/.codex/skills/engineering-infographic-zh
 ```
+
+不用 git 的话：从 [Releases](https://github.com/Szygo/engineering-infographic-zh/releases) 下载 zip，解压后把 `engineering-infographic-zh` 整个文件夹放进 `~/.codex/skills/`。
+
+装好后重启 Codex，用 `$engineering-infographic-zh` 调用。
 
 ## 用法
 
@@ -94,12 +95,26 @@ engineering-infographic-zh/
 | 适合 | 系统总体架构、现场实施全景 | 方案说明、结构 + 接口 + 流程 + 数据表 |
 | 改法 | 只改文件开头的 `DATA` 对象 | 各面板内部自己排 |
 
-## 设计原则
+## 常见问题
 
-- 全部**绝对定位**在固定画布上，不用自动排版 —— 这类图的对齐是像素级的
-- 文字必须是**真文本**，不截图、不描边
-- 色值和坐标从参考图里量出来，不靠目测
-- 渲染后必须和参考图比对，不是"看着差不多"就交付
+**渲染不出 PNG / 输出是空白**
+`render_html.py` 需要本机有 Edge 或 Chrome。自动找不到时用 `--browser "C:\path\to\chrome.exe"` 指定。另外脚本会先删掉同名输出文件——Chromium 在目标已存在时可能直接跳过截图。
+
+**中文变成方框或挤在一起**
+模板字体栈是 `"思源黑体","Source Han Sans SC","Microsoft YaHei",sans-serif`。换成本机确实装有的中文字体即可，字号规则见 `references/design-system.md`。
+
+**在中文 Windows 上跑 skill-creator 的校验脚本报编码错**
+那是脚本用系统默认 GBK 去读 UTF-8 文件导致的。先设 `$env:PYTHONUTF8='1'` 再跑就正常。
+
+**比对出来平均色差十几，是不是没还原好**
+正常。字体抗锯齿、栅格化策略、参考图自身的有损压缩都会留下残差。判断标准是放大后看不出差别，不是数值等于 0。
+
+## 约定
+
+- 元素一律绝对定位在固定画布上，不用自动排版。这类图的对齐是像素级的，自动排版会漂。
+- 文字用真文本，不截图、不描边。
+- 色值和坐标从参考图里量，不靠目测。
+- 渲染完和参考图比对一次再交付，光看着差不多不算。
 
 ## License
 
@@ -109,8 +124,10 @@ MIT
 
 ## English
 
-A Codex skill for building or faithfully reproducing dense Chinese engineering infographics (architecture diagrams, scheme boards, flowcharts) as vector HTML, then rendering to PNG or vector PDF.
+A Codex skill that builds Chinese engineering infographics: architecture diagrams, scheme boards, flowcharts, and the dense annotated figures you'd otherwise draw in PowerPoint or Visio.
 
-Diffusion models can't produce these — the text garbles and the boxes drift. The only reliable route is rebuilding the shapes and text at measured coordinates. This skill packages that workflow: measure → fill template → render headless → diff against the reference → fix the offending bands.
+It measures colours and coordinates from a reference image, fills a fixed-size HTML template, and renders it to PNG or PDF with a headless browser. The output is vector shapes and real text, so it stays editable and scales cleanly.
 
-Install by cloning into `~/.codex/skills/engineering-infographic-zh`, then ask Codex for a diagram in that style.
+Image models can't do this job: the text garbles and the boxes drift. Placing the shapes and text back at measured coordinates is what makes a copy line up with the original. The skill fixes that into five steps: measure, fill the template, render, diff against the reference, then correct the coordinates the diff points at.
+
+Clone into `~/.codex/skills/engineering-infographic-zh`, then ask Codex for a diagram in that style.
