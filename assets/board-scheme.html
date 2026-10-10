@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>方案板模板</title>
+<style>
+  :root{
+    --bg:#ffffff; --ink:#242424; --ink-title:#101828; --ink-soft:#5b5b5b;
+    --panel-line:#d6d6cd; --bar:#e9eadf; --sub-line:#dcdfd4; --badge:#465b31;
+    --green:#4a9a3f; --red:#c0392b; --amber:#e0a92e; --dash:#c9c9c0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:878px;height:585px;overflow:hidden;background:var(--bg)}
+  .root{position:relative;width:878px;height:585px;overflow:hidden;background:var(--bg);
+        font-family:"思源黑体","Source Han Sans SC","Microsoft YaHei",sans-serif;
+        color:var(--ink);-webkit-font-smoothing:antialiased}
+  .title{position:absolute;left:0;top:6px;width:878px;text-align:center;
+         font-size:20px;font-weight:700;color:var(--ink-title)}
+  .panel{position:absolute;background:#fff;border:1px solid var(--panel-line);
+         border-radius:4px;box-shadow:0 1px 2px rgba(60,60,40,.06)}
+  .panel-h{position:absolute;left:0;top:0;width:100%;height:21px;background:var(--bar);
+           border-bottom:1px solid var(--panel-line);border-radius:3px 3px 0 0;
+           display:flex;align-items:center;justify-content:center;
+           font-size:12.5px;font-weight:700;color:#1f2d50}
+  .panel-b{position:absolute;left:0;top:21px;width:100%;height:calc(100% - 21px)}
+  .sub{position:absolute;background:#fff;border:1px solid var(--sub-line);border-radius:3px}
+  .sub-h{position:absolute;left:0;top:0;width:100%;height:17px;background:#f3f4ec;
+         border-bottom:1px solid var(--sub-line);border-radius:2px 2px 0 0;
+         display:flex;align-items:center;justify-content:center;
+         font-size:10.5px;font-weight:700;color:#28324a}
+  .badge{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--badge);
+         color:#fff;display:flex;align-items:center;justify-content:center;
+         font-size:9px;font-weight:700}
+  .badge.sm{position:relative;width:13px;height:13px;font-size:8px;display:inline-flex}
+  .dash{position:absolute;border-left:1px dashed var(--dash)}
+  .note{position:absolute;border:1px dashed var(--dash);border-radius:4px;background:#fcfcfa;
+        display:flex;align-items:center;justify-content:center;
+        font-size:9.5px;color:#4a4a4a;text-align:center}
+  .step{position:absolute;background:#fff;border:1px solid var(--sub-line);border-radius:3px;
+        display:flex;flex-direction:column;align-items:center;justify-content:center;
+        font-size:9.5px;line-height:13px;text-align:center;color:#2b2b2b}
+  .step b{font-weight:700;color:#1f2d50}
+  .arrow{position:absolute;color:#b9b9ae;font-size:13px;display:flex;align-items:center}
+  .tbl{position:absolute;border:1px solid var(--sub-line);border-radius:3px;overflow:hidden;background:#fff}
+  .tbl .th{background:#f2f3ea;text-align:center;font-weight:700;color:#28324a}
+  .tbl table{border-collapse:collapse;width:100%;font-size:7.5px;table-layout:fixed}
+  .tbl td{border:1px solid #e3e5da;padding:0 3px;line-height:10px;word-break:break-all}
+  .cap{position:absolute;font-size:10.5px;font-weight:700;color:#28324a;text-align:center}
+  .txt{position:absolute;font-size:10px;line-height:15px;color:#333}
+  .txt li{list-style:none;padding-left:11px;position:relative}
+  .txt li:before{content:"";position:absolute;left:1px;top:6px;width:4px;height:4px;
+                 background:#5b6b3a;border-radius:1px}
+  .dot{position:absolute;width:8px;height:8px;border-radius:50%}
+  .legend{position:absolute;display:flex;align-items:center;gap:4px;font-size:9.5px;
+          color:#2b2b2b;white-space:nowrap}
+  .step span{font-size:0.9em;color:#4a4a4a}
+</style>
+</head>
+<body>
+<div class="root">
+  <div class="title">模块接口检验工装方案</div>
+
+  <!-- ========== 1. 工装结构组成 ========== -->
+  <div class="panel" style="left:7px;top:34px;width:488px;height:256px">
+    <div class="panel-h">1. 工装结构组成</div>
+    <div class="panel-b">
+      <!-- 机箱示意（矢量近似；有实物图时换成 <img>） -->
+      <div style="position:absolute;left:14px;top:22px;width:318px;height:118px;border-radius:5px;
+                  background:linear-gradient(#5c5f60,#3c3f40);border:1px solid #2f3132"></div>
+      <div style="position:absolute;left:20px;top:28px;width:306px;height:16px;border-radius:3px;
+                  background:#6b6e6f"></div>
+      <div style="position:absolute;left:26px;top:50px;width:68px;height:84px;background:#ededed;border-radius:2px"></div>
+      <div style="position:absolute;left:100px;top:50px;width:76px;height:84px;background:#efefef;border-radius:2px"></div>
+      <div style="position:absolute;left:182px;top:50px;width:58px;height:84px;background:#ededed;border-radius:2px"></div>
+      <div style="position:absolute;left:246px;top:50px;width:74px;height:84px;background:#ededed;border-radius:2px"></div>
+      <div style="position:absolute;left:31px;top:55px;width:58px;height:9px;background:#3f3f3f;border-radius:2px"></div>
+      <div style="position:absolute;left:105px;top:55px;width:66px;height:9px;background:#3f3f3f;border-radius:2px"></div>
+      <div style="position:absolute;left:187px;top:55px;width:48px;height:9px;background:#3f3f3f;border-radius:2px"></div>
+      <div style="position:absolute;left:251px;top:55px;width:64px;height:9px;background:#3f3f3f;border-radius:2px"></div>
+      <!-- 编号圆徽 + 虚线引线 -->
+      <div class="badge" style="left:50px;top:2px">1</div><div class="dash" style="left:58px;top:18px;height:26px"></div>
+      <div class="badge" style="left:150px;top:2px">2</div><div class="dash" style="left:158px;top:18px;height:26px"></div>
+      <div class="badge" style="left:236px;top:2px">4</div><div class="dash" style="left:244px;top:18px;height:26px"></div>
+      <div class="badge" style="left:62px;top:158px">2</div><div class="dash" style="left:70px;top:138px;height:20px"></div>
+      <div class="badge" style="left:150px;top:158px">3</div><div class="dash" style="left:158px;top:138px;height:20px"></div>
+      <div class="badge" style="left:236px;top:158px">4</div><div class="dash" style="left:244px;top:138px;height:20px"></div>
+      <div class="badge" style="left:300px;top:158px">6</div><div class="dash" style="left:308px;top:138px;height:20px"></div>
+      <div class="cap" style="left:14px;top:180px;width:318px">机箱结构（前面板示意）</div>
+      <!-- 图例 -->
+      <div class="legend" style="left:16px;top:204px"><span class="badge sm">1</span>接口适配单元</div>
+      <div class="legend" style="left:130px;top:204px"><span class="badge sm">2</span>信号采集单元</div>
+      <div class="legend" style="left:244px;top:204px"><span class="badge sm">3</span>供电保护单元</div>
+      <div class="legend" style="left:16px;top:224px"><span class="badge sm">4</span>状态显示单元</div>
+      <div class="legend" style="left:130px;top:224px"><span class="badge sm">5</span>工控计算单元</div>
+      <div class="legend" style="left:244px;top:224px"><span class="badge sm">6</span>连接端子区</div>
+      <!-- 后视图 -->
+      <div class="sub" style="left:340px;top:6px;width:140px;height:68px">
+        <div class="sub-h">后视图（示例）</div>
+        <div style="position:absolute;left:8px;top:26px;width:40px;height:34px;background:#3c3f40;border-radius:3px"></div>
+        <div style="position:absolute;left:56px;top:30px;width:30px;height:30px;border-radius:50%;
+                    background:repeating-conic-gradient(#9a9a9a 0 12deg,#5c5f60 12deg 24deg)"></div>
+        <div style="position:absolute;left:94px;top:28px;width:36px;height:30px;background:#4a4d4e;border-radius:2px"></div>
+      </div>
+      <ul class="txt" style="left:342px;top:78px;width:140px;font-size:9px;line-height:13px">
+        <li>交流/直流输入：DC 24V</li>
+        <li>接地端子</li>
+        <li>散热风扇</li>
+        <li>维护接口（LAN/USB）</li>
+        <li>保险与电源开关</li>
+      </ul>
+      <!-- 配置表 -->
+      <div class="tbl" style="left:340px;top:138px;width:140px">
+        <div class="sub-h" style="position:static;width:100%">工装主要配置</div>
+        <table>
+          <tr><td>工控计算单元</td><td>工控计算机</td></tr>
+          <tr><td>信号采集单元</td><td>多通道采集</td></tr>
+          <tr><td>接口适配单元</td><td>定制适配板</td></tr>
+          <tr><td>供电保护单元</td><td>24V电源模块</td></tr>
+          <tr><td>状态显示单元</td><td>指示灯/屏</td></tr>
+          <tr><td>结构机箱</td><td>19" 机箱</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 2. 接口设计与分区布局 ========== -->
+  <div class="panel" style="left:504px;top:34px;width:361px;height:256px">
+    <div class="panel-h">2. 接口设计与分区布局（前面板示例）</div>
+    <div class="panel-b">
+      <div class="sub" style="left:8px;top:6px;width:168px;height:74px">
+        <div class="sub-h">供电类接口区</div>
+        <div style="position:absolute;left:8px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">PWR IN<br>DC 24V</div>
+        <div style="position:absolute;left:58px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">PWR OUT<br>24V/5V/12V</div>
+        <div style="position:absolute;left:14px;top:63px;width:40px;height:8px;border:1px solid #4a6d2b;border-radius:2px"></div>
+        <div style="position:absolute;left:64px;top:63px;width:40px;height:8px;border:1px solid #4a6d2b;border-radius:2px"></div>
+      </div>
+      <div class="sub" style="left:185px;top:6px;width:168px;height:74px">
+        <div class="sub-h">控制类接口区</div>
+        <div style="position:absolute;left:8px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">CTRL-1<br>RS-485</div>
+        <div style="position:absolute;left:58px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">CTRL-2<br>RS-232</div>
+        <div style="position:absolute;left:108px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">DIO<br>DOUT</div>
+      </div>
+      <div class="sub" style="left:8px;top:88px;width:168px;height:74px">
+        <div class="sub-h">通信类接口区</div>
+        <div style="position:absolute;left:8px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">LAN</div>
+        <div style="position:absolute;left:58px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">CAN</div>
+        <div style="position:absolute;left:108px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">USB</div>
+      </div>
+      <div class="sub" style="left:185px;top:88px;width:168px;height:74px">
+        <div class="sub-h">测试辅助接口区</div>
+        <div style="position:absolute;left:8px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">TEST-1</div>
+        <div style="position:absolute;left:58px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">TEST-2</div>
+        <div style="position:absolute;left:108px;top:24px;width:44px;height:36px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:11px;padding-top:3px">EXT-IO</div>
+      </div>
+      <div class="sub" style="left:8px;top:170px;width:150px;height:64px">
+        <div class="sub-h">标识规范示例</div>
+        <ul class="txt" style="left:8px;top:22px;width:134px;font-size:9.5px;line-height:14px">
+          <li>接口编号 = 名称 + 方位/属性标识</li>
+          <li>连接方向用白色标识指示</li>
+          <li>标识与面板外观一致</li>
+        </ul>
+      </div>
+      <div class="sub" style="left:167px;top:170px;width:186px;height:64px">
+        <div class="sub-h">接口标识示例</div>
+        <div style="position:absolute;left:8px;top:24px;width:52px;height:30px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;text-align:center;line-height:10px;padding-top:4px">CTRL-1<br>RS-485</div>
+        <div style="position:absolute;left:66px;top:24px;width:110px;height:30px;background:#fbfbf6;border:1px solid #dcdfd4;border-radius:2px;
+                    font-size:8px;line-height:30px;text-align:center">IN  OUT  GND</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 3. 供电设计 ========== -->
+  <div class="panel" style="left:8px;top:297px;width:487px;height:102px">
+    <div class="panel-h">3. 供电设计（24V 方案）</div>
+    <div class="panel-b">
+      <div class="step" style="left:14px;top:11px;width:66px;height:38px;font-size:8.5px;line-height:11px"><b>DC 24V 输入</b><span>端子/航空插头</span></div>
+      <div class="arrow" style="left:81px;top:24px">→</div>
+      <div class="step" style="left:90px;top:11px;width:66px;height:38px;font-size:8.5px;line-height:11px"><b>输入保护</b><span>反接/过流/浪涌</span></div>
+      <div class="arrow" style="left:157px;top:24px">→</div>
+      <div class="step" style="left:166px;top:11px;width:66px;height:38px;font-size:8.5px;line-height:11px"><b>DC/DC 转换</b><span>24V→5V/12V</span></div>
+      <div class="arrow" style="left:233px;top:24px">→</div>
+      <div class="step" style="left:242px;top:11px;width:66px;height:38px;font-size:8.5px;line-height:11px"><b>负载分配</b><span>各功能模块供电</span></div>
+      <div class="arrow" style="left:309px;top:24px">→</div>
+      <div class="step" style="left:318px;top:11px;width:66px;height:38px;font-size:8.5px;line-height:11px"><b>状态指示</b><span>PWR/RUN/ERR</span></div>
+      <div class="legend" style="left:398px;top:10px;font-size:9px"><span class="dot" style="position:relative;background:var(--green)"></span>PWR：电源正常</div>
+      <div class="legend" style="left:398px;top:28px;font-size:9px"><span class="dot" style="position:relative;background:var(--green)"></span>RUN：运行正常</div>
+      <div class="legend" style="left:398px;top:46px;font-size:9px"><span class="dot" style="position:relative;background:var(--red)"></span>ERR：异常报警</div>
+      <div class="note" style="left:104px;top:58px;width:270px;height:22px">信号测试回路与供电回路隔离设计</div>
+    </div>
+  </div>
+
+  <!-- ========== 4. 结构尺寸与安装方式 ========== -->
+  <div class="panel" style="left:504px;top:298px;width:361px;height:101px">
+    <div class="panel-h">4. 结构尺寸与安装方式</div>
+    <div class="panel-b">
+      <div style="position:absolute;left:14px;top:14px;width:150px;height:56px;background:#f2f2ee;border:1px solid #c9c9c0;border-radius:3px"></div>
+      <div style="position:absolute;left:24px;top:22px;width:130px;height:40px;background:#e7e7e2;border:1px solid #b9b9b0;border-radius:2px"></div>
+      <div style="position:absolute;left:6px;top:6px;font-size:9px;color:#4a4a4a">≤600mm</div>
+      <div style="position:absolute;left:150px;top:6px;font-size:9px;color:#4a4a4a">≤800mm</div>
+      <div style="position:absolute;left:56px;top:70px;font-size:9px;color:#4a4a4a">≤500mm</div>
+      <ul class="txt" style="left:186px;top:6px;width:170px;font-size:8.5px;line-height:13px">
+        <li>尺寸要求：不大于 800(W)×600(H)×500(D) mm</li>
+        <li>机箱：19" 标准结构，台面摆放</li>
+        <li>前后面板布局合理，便于操作与维护</li>
+        <li>散热：风冷设计，通风口预留</li>
+        <li>表面处理：喷漆，标识清晰，边缘圆角处理</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ========== 5. 测试流程 ========== -->
+  <div class="panel" style="left:7px;top:406px;width:446px;height:169px">
+    <div class="panel-h">5. 测试流程</div>
+    <div class="panel-b">
+      <!-- 8 个步骤：图标位用方块代替，可换成 SVG/图片 -->
+      <div class="step" style="left:19px;top:10px;width:30px;height:30px;background:#fbfbf6;font-size:15px">▤</div>
+      <div class="arrow" style="left:52px;top:18px;font-size:9px">→</div>
+      <div class="step" style="left:73px;top:10px;width:30px;height:30px;background:#fbfbf6;font-size:15px">✚</div>
+      <div class="arrow" style="left:106px;top:18px;font-size:9px">→</div>
+      <div class="step" style="left:127px;top:10px;width:30px;height:30px;background:#fbfbf6;font-size:15px">⏻</div>
+      <div class="arrow" style="left:160px;top:18px;font-size:9px">→</div>
+      <div class="step" style="left:181px;top:10px;width:30px;height:30px;background:#fbfbf6;font-size:15px">▦</div>
+      <div class="arrow" style="left:214px;top:18px;font-size:9px">→</div>
+      <div class="step" style="left:235px;top:10px;width:30px;height:30px;background:#fbfbf6;font-size:15px">▣</div>
+      <div class="arrow" style="left:268px;top:18px;font-size:9px">→</div>
+      <div class="step" style="left:289px;top:10px;width:30px;height:30px;background:#fbfbf6;font-size:15px">⚠</div>
+      <div class="arrow" style="left:322px;top:18px;font-size:9px">→</div>
+      <div class="step" style="left:343px;top:10px;width:30px;height:30px;background:#fbfbf6;font-size:15px">☺</div>
+      <div class="arrow" style="left:376px;top:18px;font-size:9px">→</div>
+      <div class="step" style="left:397px;top:10px;width:30px;height:30px;background:#fbfbf6;font-size:15px">▥</div>
+      <div class="step" style="left:8px;top:46px;width:52px;height:62px;align-items:flex-start;padding:3px 3px;font-size:7px;line-height:9.5px">
+        <b>①产品信息录入</b><span>◆模块编号<br>◆操作人员<br>◆测试项目选择</span></div>
+      <div class="step" style="left:62px;top:46px;width:52px;height:62px;align-items:flex-start;padding:3px 3px;font-size:7px;line-height:9.5px">
+        <b>②工装自检</b><span>◆电源自检<br>◆通信自检<br>◆线缆完整性<br>◆模块供电确认</span></div>
+      <div class="step" style="left:116px;top:46px;width:52px;height:62px;align-items:flex-start;padding:3px 3px;font-size:7px;line-height:9.5px">
+        <b>③连接确认</b><span>◆接口连接检查<br>◆灯位确认<br>◆状态确认</span></div>
+      <div class="step" style="left:170px;top:46px;width:52px;height:62px;align-items:flex-start;padding:3px 3px;font-size:7px;line-height:9.5px">
+        <b>④接口逐项检测</b><span>◆连通性<br>◆通信自检<br>◆电气参数</span></div>
+      <div class="step" style="left:224px;top:46px;width:52px;height:62px;align-items:flex-start;padding:3px 3px;font-size:7px;line-height:9.5px">
+        <b>⑤结果自动记录</b><span>◆自动保存<br>◆生成记录</span></div>
+      <div class="step" style="left:278px;top:46px;width:52px;height:62px;align-items:flex-start;padding:3px 3px;font-size:7px;line-height:9.5px">
+        <b>⑥异常提示</b><span>◆失败原因<br>◆可能原因提示</span></div>
+      <div class="step" style="left:332px;top:46px;width:52px;height:62px;align-items:flex-start;padding:3px 3px;font-size:7px;line-height:9.5px">
+        <b>⑦人工复检/处理</b><span>◆检查返修<br>◆处理异常<br>◆复测</span></div>
+      <div class="step" style="left:386px;top:46px;width:52px;height:62px;align-items:flex-start;padding:3px 3px;font-size:7px;line-height:9.5px">
+        <b>⑧报告保存</b><span>◆生成报告<br>◆数据归档</span></div>
+      <div class="note" style="left:30px;top:118px;width:386px;height:22px">
+        复测流程：异常处理后可返回步骤 4 重新检测，复测记录与原始记录关联保存</div>
+    </div>
+  </div>
+
+  <!-- ========== 6. 数据输出 ========== -->
+  <div class="panel" style="left:463px;top:407px;width:402px;height:168px">
+    <div class="panel-h">6. 数据输出</div>
+    <div class="panel-b">
+      <div class="tbl" style="left:6px;top:8px;width:130px">
+        <div class="sub-h" style="position:static;width:100%">单个模块检验记录（示例）</div>
+        <table>
+          <tr><td>模块编号</td><td>SN202405001</td></tr>
+          <tr><td>测试日期</td><td>2024-05-20 10:15:32</td></tr>
+          <tr><td>测试人员</td><td>张三</td></tr>
+          <tr><td>测试项目</td><td>接口连通性/状态/电气参数等</td></tr>
+          <tr><td>总体结果</td><td style="text-align:center"><span style="display:inline-block;padding:1px 8px;background:#dfeacd;border-radius:2px;color:#2f5d1f">合格</span></td></tr>
+          <tr><td>备注说明</td><td>接口工作正常</td></tr>
+        </table>
+      </div>
+      <div class="tbl" style="left:142px;top:8px;width:126px">
+        <div class="sub-h" style="position:static;width:100%">批量汇总表（示例）</div>
+        <table>
+          <tr><td>模块编号</td><td>总体结果</td><td>合格率</td></tr>
+          <tr><td>SN202405001</td><td>合格</td><td rowspan="4" style="text-align:center;font-weight:700">94.7%</td></tr>
+          <tr><td>SN202405002</td><td>合格</td></tr>
+          <tr><td>SN202405003</td><td>不合格</td></tr>
+          <tr><td>…</td><td>…</td></tr>
+        </table>
+      </div>
+      <div class="tbl" style="left:274px;top:8px;width:122px">
+        <div class="sub-h" style="position:static;width:100%">异常清单（示例）</div>
+        <table>
+          <tr><td>模块编号</td><td>SN202405003</td></tr>
+          <tr><td>异常接口</td><td>CTRL-1（RS-485）</td></tr>
+          <tr><td>异常描述</td><td>无法通信/超时</td></tr>
+          <tr><td>处理措施</td><td>检查线缆，更换转接板</td></tr>
+          <tr><td>复测结论</td><td>合格</td></tr>
+        </table>
+      </div>
+      <div style="position:absolute;left:6px;top:140px;width:390px;font-size:9.5px;color:#333">
+        输出格式：Excel/CSV/PDF&nbsp;&nbsp;&nbsp;存储位置：本地数据库/USB 导出&nbsp;&nbsp;&nbsp;满足项目试验情况记录表与试验工作总结报告要求
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

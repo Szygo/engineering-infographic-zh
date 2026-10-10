@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>总览板模板</title>
+<style>
+  :root{
+    --bg:#fbfbf7; --card:#ffffff; --line:#dde5ec; --head:#e6f0fa; --head-line:#dae4ee;
+    --ink:#22313f; --ink-title:#0e2844; --ink-soft:#5a6a79; --ink-tab:#33506b;
+    --blue:#e8f3ff; --peach:#fff0de; --cream:#fff8e8; --pink:#f8e7e2; --lav:#f3effd; --gray:#f2f3f1;
+    --amber:#f2d394; --amber-line:#dcae5b; --slate:#35617f; --slate-line:#7fa8c4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:968px;height:637px;overflow:hidden;background:var(--bg)}
+  .root{position:relative;width:968px;height:637px;overflow:hidden;background:var(--bg);
+        font-family:"思源黑体","Source Han Sans SC","Microsoft YaHei",sans-serif;
+        color:var(--ink);-webkit-font-smoothing:antialiased}
+  .grid{position:absolute;left:0;top:0;width:968px;height:637px;
+        background-image:repeating-linear-gradient(to bottom,rgba(90,120,150,.022) 0 1px,transparent 1px 11px),
+                         repeating-linear-gradient(to right,rgba(90,120,150,.022) 0 1px,transparent 1px 11px)}
+  .a{position:absolute}
+  .card{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:12px;
+        box-shadow:0 2px 6px rgba(120,145,170,.13)}
+  .cardh{position:absolute;height:33px;background:var(--head);
+         border-radius:11px 11px 0 0;border-bottom:1px solid var(--head-line);
+         display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700}
+  .pill{position:absolute;top:88px;height:28px;border-radius:14px;display:flex;align-items:center;
+        justify-content:center;font-size:10px;color:#24384a;border:1px solid rgba(120,150,180,.22)}
+  .tab{position:absolute;width:18px;height:18px;border-radius:4px;display:flex;align-items:center;
+       justify-content:center;font-size:10.5px;color:var(--ink-tab);border:1px solid rgba(120,150,180,.25)}
+  .row{position:absolute;display:flex;align-items:center;font-size:10px}
+  .num{position:absolute;width:14px;height:14px;border-radius:50%;background:#c3d8ef;color:#1b3956;
+       display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700}
+  .badge{position:absolute;width:19px;height:19px;border-radius:50%;background:#fdf3e3;
+         border:1px solid #e8d9bd;color:#2a4a6b;display:flex;align-items:center;justify-content:center;
+         font-size:10px;font-weight:700}
+  .chev{position:absolute;top:560px;height:40px;width:128px;display:flex;align-items:center;
+        justify-content:center;font-size:10px;padding-left:25px;
+        clip-path:polygon(0 0,calc(100% - 13px) 0,100% 50%,calc(100% - 13px) 100%,0 100%,13px 50%)}
+  .chev i{position:absolute;left:16px;width:15px;height:15px;border-radius:50%;background:#c3d8ef;
+          color:#1b3956;display:flex;align-items:center;justify-content:center;font-size:9px;
+          font-weight:700;font-style:normal}
+  .sub{position:absolute;background:#fff;border:1px solid var(--line);border-radius:9px}
+  .chip{position:absolute;background:#fff;border:1px solid #cfd9e2;border-radius:3px;display:flex;
+        align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#2b3d4d}
+  .dot{position:absolute;width:5px;height:5px;border-radius:50%}
+</style>
+</head>
+<body>
+<div class="root"><div class="grid"></div><div id="stage"></div></div>
+
+<script>
+/* ================= 只改这个 DATA 块 ================= */
+window.DATA = {
+  title: "出厂测试现场实施图",
+  subtitle: "出厂前完成外观、接口、功能、指标、问题清零和资料放行",
+  tags: [
+    {text:"20~50MHz", color:"blue"},
+    {text:"同传设备",  color:"peach"},
+    {text:"自动采集",  color:"blue"},
+    {text:"双人复核",  color:"lav"},
+    {text:"问题闭环",  color:"pink"},
+    {text:"报告归档",  color:"cream"}
+  ],
+  interfaces: {
+    title: "被测对象接口",
+    items: [
+      {tab:"插", label:"电源接口",     color:"#eef3f8"},
+      {tab:"波", label:"信号接口",     color:"#fdf0e2"},
+      {tab:"链", label:"通信接口",     color:"#e8f2fb"},
+      {tab:"态", label:"状态接口",     color:"#eef0fb"},
+      {tab:"数", label:"RF输入/输出",  color:"#eef6ee"},
+      {tab:"报", label:"急停联锁",     color:"#fdeaea"}
+    ]
+  },
+  fixture: {
+    label: "出厂测试工装",
+    caption: "被测同传设备/模块",
+    chips: ["RF","IO","PWR","ADC","CTRL","LOAD"],
+    bars: 4
+  },
+  instruments: {
+    title: "仪器资源池",
+    items: [
+      {name:"信号源", kind:"sine"},
+      {name:"频谱仪", kind:"wave"},
+      {name:"示波器", kind:"sine"},
+      {name:"功率计", kind:"bars"}
+    ]
+  },
+  software: {
+    title: "上位机自动化软件",
+    terminal: "记录终端",
+    panel: ["AUTO","PASS"],
+    action: {title:"软件动作", detail:"模板选择、仪器触发、数据回读、异常提示"}
+  },
+  lists: [
+    {title:"具体工作", x:63,  w:222, items:["录样机","查外观","测功能","测指标","关问题"]},
+    {title:"测试对象", x:305, w:193, items:["调制解调","功放","电源","匹配","整机"]},
+    {title:"记录输出", x:519, w:193, items:["原始数据","仪器截图","问题单","复测记录","报告结论"]}
+  ],
+  formula: {expr:"Pout=Pm+Lc+Ls", note:"线缆、矩阵和工装插损统一补偿<br>，数据绑定TraceID。"},
+  steps: {
+    title: "可执行步骤与输出物",
+    items: [
+      {text:"录样机", color:"blue"},  {text:"查外观", color:"peach"},
+      {text:"测功能", color:"cream"}, {text:"测指标", color:"pink"},
+      {text:"关问题", color:"lav"},   {text:"放行",   color:"gray"}
+    ]
+  }
+};
+/* =================================================== */
+</script>
+
+<script>
+(function () {
+  const d = window.DATA;
+  const stage = document.getElementById('stage');
+  const COLORS = {blue:'#e8f3ff', peach:'#fff0de', cream:'#fff8e8', pink:'#f8e7e2', lav:'#f3effd', gray:'#f2f3f1'};
+  const PILL_X = [61, 203, 344, 485, 627, 768];
+  const PILL_W = [123, 122, 122, 122, 121, 122];
+  const CHEV_X = [78, 213, 349, 484, 619, 755];
+
+  function put(style, html, cls) {
+    const e = document.createElement('div');
+    e.className = cls || 'a';
+    Object.assign(e.style, style);
+    if (html != null) e.innerHTML = html;
+    stage.appendChild(e);
+    return e;
+  }
+  const px = v => v + 'px';
+  function box(x, y, w, h, extra, cls) {
+    return put(Object.assign({left:px(x), top:px(y), width:px(w), height:px(h)}, extra || {}), null, cls);
+  }
+  function card(x, y, w, h, title, extra) {
+    box(x, y, w, h, extra, 'card');
+    if (title) put({left:px(x), top:px(y), width:px(w)}, title, 'cardh');
+  }
+  function text(x, y, w, str, size, color, weight, align) {
+    return put({left:px(x), top:px(y), width:px(w), fontSize:px(size), color:color || '#22313f',
+                fontWeight:weight || 400, textAlign:align || 'left'}, str);
+  }
+  function miniGraphic(kind) {
+    if (kind === 'bars') {
+      return '<svg width="42" height="20">' +
+        '<rect x="0" y="13" width="5" height="7" fill="#3f7fb5"/><rect x="8" y="9" width="5" height="11" fill="#5aa0d6"/>' +
+        '<rect x="16" y="11" width="5" height="9" fill="#3f7fb5"/><rect x="24" y="0" width="5" height="20" fill="#7cc0ea"/>' +
+        '<rect x="32" y="7" width="5" height="13" fill="#5aa0d6"/></svg>';
+    }
+    const stroke = kind === 'wave' ? '#8fd3f4' : '#f0c33c';
+    const path = kind === 'wave'
+      ? 'M0 28 C8 10 14 32 22 15 C30 2 40 24 50 8'
+      : 'M0 30 C10 6 18 36 26 17 C34 2 42 26 50 10';
+    return '<svg width="50" height="38"><path d="' + path + '" fill="none" stroke="' + stroke + '" stroke-width="2.3"/></svg>';
+  }
+
+  /* 标题卡 */
+  box(42, 16, 885, 58, {borderRadius: '14px'}, 'card');
+  text(63, 16, 700, d.title, 23, '#0e2844', 700);
+  text(64, 57, 800, d.subtitle, 11, '#5a6a79');
+
+  /* 标签行 */
+  d.tags.forEach((t, i) => {
+    put({left:px(PILL_X[i]), width:px(PILL_W[i]), background:COLORS[t.color] || t.color}, t.text, 'pill');
+  });
+
+  /* 1 被测对象接口 */
+  card(45, 143, 125, 181, d.interfaces.title);
+  d.interfaces.items.forEach((it, i) => {
+    const y = 185 + i * 26;
+    put({left:'52px', top:px(y), background:it.color}, it.tab, 'tab');
+    put({left:'84px', top:px(y + 2)}, it.label, 'row');
+  });
+
+  /* 2 出厂测试工装 */
+  box(188, 142, 272, 180, {background:'#f7f8f5', borderColor:'#c9d3dc'}, 'card');
+  put({left:'214px', top:'162px', width:'236px', height:'2px', background:'#dfb25f'});
+  const sqX = [204, 283, 361, 439];
+  sqX.forEach(x => {
+    box(x, 152, 20, 20, {borderRadius:'5px', background:'var(--amber)', border:'1px solid var(--amber-line)', boxShadow:'none'});
+    put({left:px(x + 6), top:'173px', width:'9px', height:'9px', background:'var(--amber)',
+         border:'1px solid var(--amber-line)', transform:'rotate(45deg)'});
+  });
+  box(198, 182, 252, 132, {borderRadius:'10px'}, 'sub');
+  box(246, 188, 172, 83, {background:'var(--slate)', border:'1px solid var(--slate-line)', borderRadius:'6px', boxShadow:'none'});
+  put({left:'252px', top:'196px', width:'2px', height:'68px', background:'#9dc0d8'});
+  put({left:'252px', top:'205px', width:'12px', height:'2px', background:'#9dc0d8'});
+  put({left:'252px', top:'244px', width:'12px', height:'2px', background:'#9dc0d8'});
+  d.fixture.chips.forEach((c, i) => {
+    const col = i % 3, row = Math.floor(i / 3);
+    put({left:px(264 + col * 44), top:px(199 + row * 39), width:'32px', height:'15px'}, c, 'chip');
+  });
+  for (let i = 0; i < (d.fixture.bars || 0); i++) {
+    put({left:'400px', top:px(194 + i * 16), width:'16px', height:'12px', background:'#fff',
+         border:'1px solid #cfd9e2', borderRadius:'2px'});
+  }
+  put({left:'217px', top:'292px', width:'230px', height:'20px', borderRadius:'6px', display:'flex',
+       alignItems:'center', justifyContent:'center', fontSize:'11px'}, d.fixture.caption, 'sub');
+  text(188, 330, 272, d.fixture.label, 11.5, '#22313f', 700, 'center');
+
+  /* 3 仪器资源池 */
+  card(493, 137, 228, 197, d.instruments.title);
+  const cellX = [505, 617], cellY = [176, 260], labY = [226, 310];
+  d.instruments.items.forEach((it, i) => {
+    const cx = cellX[i % 2], cy = cellY[Math.floor(i / 2)];
+    box(cx, cy, 98, 46, null, 'sub');
+    put({left:px(cx + 6), top:px(cy + 6), width:'20px', height:'16px'}, 'RF', 'chip');
+    ['#e0483a', '#e8b93b', '#2f9e52'].forEach((c, k) => {
+      put({left:px(cx + 7 + k * 8), top:px(cy + 28), background:c}, null, 'dot');
+    });
+    box(cx + 41, cy + 4, 50, 38, {background:'#12384f', borderRadius:'3px', border:'none', boxShadow:'none'});
+    put({left:px(cx + 41), top:px(cy + 4)}, miniGraphic(it.kind));
+    text(cx + 16, labY[Math.floor(i / 2)], 66, it.name, 10, '#22313f', 400, 'center');
+  });
+
+  /* 4 上位机自动化软件 */
+  card(739, 145, 160, 185, d.software.title);
+  box(752, 186, 134, 58, {background:'#eef2f6', borderColor:'#dbe3ea'}, 'sub');
+  put({left:'760px', top:'200px', width:'18px', height:'16px'}, 'RF', 'chip');
+  put({left:'816px', top:'192px', width:'44px', height:'40px', background:'#141414', borderRadius:'3px',
+       color:'#f5c518', fontSize:'8.5px', lineHeight:'11px', paddingTop:'4px', textAlign:'center',
+       fontWeight:700}, d.software.panel.join('<br>'));
+  ['#e0483a', '#e8b93b', '#2f9e52'].forEach((c, k) => {
+    put({left:px(761 + k * 8), top:'228px', background:c}, null, 'dot');
+  });
+  [194, 218].forEach(y => {
+    put({left:'858px', top:px(y), width:'17px', height:'17px', borderRadius:'50%',
+         background:'#e9eef2', border:'1px solid #cfd9e2'});
+    put({left:'858px', top:px(y), width:'17px', height:'17px', display:'flex', alignItems:'center',
+         justifyContent:'center', fontSize:'9px', color:'#4a7fa8'}, '✓');
+  });
+  text(752, 248, 134, d.software.terminal, 10.5, '#1b2c3c', 700, 'center');
+  put({left:'754px', top:'279px', width:'129px', height:'42px', background:'var(--cream)',
+       border:'1px solid #f0dfb8', borderRadius:'6px'});
+  put({left:'754px', top:'279px', width:'129px', height:'20px', display:'flex', alignItems:'center',
+       justifyContent:'center', fontSize:'11px', fontWeight:700, color:'#1b2c3c'}, d.software.action.title);
+  put({left:'756px', top:'300px', width:'125px', textAlign:'center', fontSize:'8px', color:'#6b7b8a'},
+      d.software.action.detail);
+
+  /* 圆序号 */
+  [[170, 221, '1'], [472, 221, '2'], [717, 221, '3']].forEach(b => {
+    put({left:px(b[0]), top:px(b[1])}, b[2], 'badge');
+  });
+
+  /* 第二行清单卡 */
+  d.lists.forEach(L => {
+    card(L.x, 356, L.w, 135, L.title);
+    L.items.forEach((s, i) => {
+      const y = 394 + i * 21;
+      put({left:px(L.x + 18), top:px(y)}, String(i + 1), 'num');
+      put({left:px(L.x + 34), top:px(y)}, s, 'row');
+    });
+  });
+
+  /* 公式卡 */
+  box(740, 378, 155, 82, {borderRadius:'10px'}, 'card');
+  put({left:'744px', top:'382px', width:'147px', height:'19px', background:'var(--head)',
+       border:'1px solid #d5e2f0', borderRadius:'6px', display:'flex', alignItems:'center',
+       justifyContent:'center', fontSize:'11px', fontWeight:700, color:'#1b2c3c'}, d.formula.expr);
+  put({left:'750px', top:'408px', width:'140px', fontSize:'9px', lineHeight:'13px',
+       color:'#5b6b7a'}, d.formula.note);
+
+  /* 底部步骤带 */
+  card(60, 521, 848, 86, d.steps.title);
+  d.steps.items.forEach((s, i) => {
+    put({left:px(CHEV_X[i]), background:COLORS[s.color] || s.color}, '<i>' + (i + 1) + '</i>' + s.text, 'chev');
+  });
+})();
+</script>
+</body>
+</html>
